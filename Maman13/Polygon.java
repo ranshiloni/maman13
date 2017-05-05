@@ -10,7 +10,7 @@ public class Polygon
     private Point[] _vertices;
     private int _noOfVertices;
     final int MAX_VERTICES = 10;
-    
+
     // Constructor
     /**
      * Initialazation constructor building an array of Points that will make a Polygon
@@ -20,10 +20,10 @@ public class Polygon
         _vertices = new Point[MAX_VERTICES]; 
         _noOfVertices = 0;
     }
-    
+
     /**
      * Adds a point to the Polygon, assuming the input is valid and in order. 
-     * returns true if the operation is successful, false if the shape is already complete or input is invalid.
+     * @return True if the operation is successful, false if the shape is already complete or input is invalid.
      */
     public boolean addVertex(double x, double y)
     {
@@ -35,18 +35,52 @@ public class Polygon
         }
         return false;
     }
-    
+
     /**
-     * Finds the highest point in the polygon and returns it. If there's more than one, it returns the first in the series. 
-     * @return 
+     * Finds the highest point in the polygon. 
+     * @return The highest Point in the polygon. Returns null if the array is empty.
      */
     public Point highestVertex()
     {
-        while (
+        if (_noOfVertices == 1) return new Point(_vertices[0]);
+        Point highest;
+        int i;
+        for (i=1; i<_noOfVertices; i++)
+        {
+            if (_vertices[i].isAbove(_vertices[i-1]))
+            {
+                highest = new Point(_vertices[i]);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Return a string representation of this polygon in the format ((2.0,1.0),(5.0,0.0),(7.0,5.0),(4.0,6.0),(1.0,4.0)) for example.
+     * @return String representation of this segment or that the array is empty.
+     */
+    public String toString()
+    {
+        if (_noOfVertices == 1) 
+        {
+            return "(" + _vertices[0] +")";
+        }
+        else
+        {
+            int i;
+            String output = "("; 
+            for (i=0; i<_noOfVertices-1; i++) 
+            //for all the array except the last point
+            {
+                output+= _vertices[i] + ",";
+            }
+            output+= _vertices[_noOfVertices-1] + ")"; //adding the last point with closing ( and without comma
+        }
+        return "The polygon has 0 vertices.";
     }
     
     
-    
-    
 
+    
+    
 }
