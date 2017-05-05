@@ -42,7 +42,7 @@ public class Polygon
      */
     public Point highestVertex()
     {
-        while (
+        
     }
     
     
