@@ -35,7 +35,6 @@ public class StudentsTester {
         
         
         
-        
         // double perimeter = polygon.calcPerimeter();
         // System.out.println("\nTest calcPerimeter:\nperimeter = "  + perimeter + " while it should be 18.47754906310363");
 

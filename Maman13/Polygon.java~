@@ -43,16 +43,23 @@ public class Polygon
     public Point highestVertex()
     {
         if (_noOfVertices == 1) return new Point(_vertices[0]);
-        Point highest;
         int i;
-        for (i=1; i<_noOfVertices; i++)
+        if (_noOfVertices > 1)
         {
-            if (_vertices[i].isAbove(_vertices[i-1]))
+            Point highest = new Point(_vertices[0]); 
+            //highest getting the first point now that we know that the Polygon has more than one point
+            for (i=1; i<_noOfVertices; i++)
             {
-                highest = new Point(_vertices[i]);
+
+                if (_vertices[i].isAbove(_vertices[i-1]))
+                {
+                    highest = new Point(_vertices[i]);
+                }
             }
+            return highest;
         }
         return null;
+
     }
 
     /**
@@ -65,7 +72,7 @@ public class Polygon
         {
             return "(" + _vertices[0] +")";
         }
-        else
+        else if (_noOfVertices > 1)
         {
             int i;
             String output = "("; 
@@ -75,11 +82,14 @@ public class Polygon
                 output+= _vertices[i] + ",";
             }
             output+= _vertices[_noOfVertices-1] + ")"; //adding the last point with closing ( and without comma
+            return output;
         }
         return "The polygon has 0 vertices.";
     }
     
-
     
+    
+
+
     
 }
