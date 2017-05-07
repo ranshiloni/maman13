@@ -59,7 +59,6 @@ public class Polygon
             return highest;
         }
         return null;
-
     }
 
     /**
@@ -86,6 +85,159 @@ public class Polygon
         }
         return "The polygon has 0 vertices.";
     }
+    
+    /**
+     * Calculates the perimeter of the polygon. Returns 0 if there's only one vertice.
+     * @retun the perimeter of the polygon
+     */
+    public double calcPerimeter () 
+    {
+        double sum = 0;
+        if (_noOfVertices >2 )
+        {
+            int i=0;
+            while (i < _noOfVertices -1)
+            {
+                sum += _vertices[i].distance(_vertices[i+1]);
+                i++;
+            }
+            // adds the last distance from the last point to the new to close the polygon
+            sum += _vertices[_noOfVertices-1].distance(_vertices[0]);
+            return sum;
+        }
+        
+        if (_noOfVertices == 2)
+        return _vertices[0].distance(_vertices[1]);
+        //There are less than 2 points
+        return 0;
+    }
+    
+    /**
+     * Calculates the area of the Polygon. Returns 0 if there are less than 3 points.
+     * @return the area of the Polygon
+     */
+    public double calcArea()
+    {
+        if (_noOfVertices < 3) return 0;
+        double sum = 0;
+        int lastVertice = 1;
+        //going over all the triangles in the Polygon created from the first point in the array and 2 following points
+        while (lastVertice < _noOfVertices -1)
+        {
+            sum += triangleArea(_vertices[0], _vertices[lastVertice], _vertices[lastVertice+1]);
+            lastVertice = lastVertice + 1;
+        }
+        //if the number of vertices is odd does the last calculation
+        // if (!(_noOfVertices % 2 == 0) && !(_noOfVertices == 3)) 
+            // sum += triangleArea(_vertices[0], _vertices[lastVertice-2], _vertices[lastVertice-1]);
+        return sum;
+    }
+    
+    //Calculates the area of a triangle 
+    private double triangleArea(Point a, Point b, Point c)
+    {
+        double ab = a.distance(b);
+        double bc = b.distance(c);
+        double ca = c.distance(a);
+        //s is half of the triangle Perimiter
+        double s = (ab+bc+ca)/2.0;
+         //Heron formula
+        return Math.sqrt(s*((s-ab)*(s-bc)*(s-ca)));
+    }
+    
+    /**
+     * Calculates the area of this and the reference Polygon and returns true if this Poligon's area is bigger
+     * @return true if this Poligon is bigger
+     */
+    public boolean isBigger(Polygon other) 
+    {
+        return (calcArea() > other.calcArea());
+    }
+    
+    /**
+     * Searching for the reference point in the Polygon and returns it's index location or if it doesn't exist returns -1
+     * @return the index of the reference point or -1 if it can not be found
+     */
+    public int findVertex(Point p)
+    {
+        if (_noOfVertices < 1) return -1;
+        int i = 0;
+        while (i < _noOfVertices)
+        {
+            if (_vertices[i].equals(p)) return i;
+            i++;
+        }
+        //no match found
+        return -1;
+    }
+    
+    /**
+     * Finds and returns the next Vertex in the Polygon. Returns null if the reference point can not be found or the first point if the reference is the last point.
+     * @ return the next Vertex Point
+     */
+    public Point getNextVertex(Point p) 
+    {
+        if (_noOfVertices == 1)
+        {
+            if (_vertices[0].equals(p))
+            {
+                return new Point(p);
+            }
+        }
+        int matchIndex = findVertex(p);
+        if (matchIndex == -1) return null;
+        //if there's a match and it is not the last point
+        if (matchIndex < _noOfVertices -2) 
+        {
+            return new Point(_vertices[matchIndex+1]);
+        } else if (matchIndex == _noOfVertices -1) //if it's the last point
+        {
+            return _vertices[0];
+        }
+        //if all else fail
+        return null;
+    }
+    
+    /**
+     * Returns a square Polygon that encompases this Polygon and is parallel to the axis. Returns null if there are less than 3 point.
+     * returns the encompassing Polygon
+     */
+    public Polygon getBoundingBox()
+    {
+        if (_noOfVertices < 3) return null;
+        int i = 0;
+        while (i < _noOfVertices)
+        {
+            if
+        }
+        
+        
+        
+    }
+    
+    private Polygon mostLeft()
+    {
+        int i = 0;
+        while (i < _noOfVertices) 
+        {
+            
+            i++;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+            
+                
+    
+    
+    
+    
     
     
     
